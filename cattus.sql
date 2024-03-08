@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Már 04. 18:24
+-- Létrehozás ideje: 2024. Már 04. 18:38
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.2.4
 
@@ -31,7 +31,19 @@ CREATE TABLE `cats` (
   `id` int(11) NOT NULL,
   `ownerID` int(11) NOT NULL,
   `name` text NOT NULL,
-  `picture` text NOT NULL,
+  `picture` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `positions`
+--
+
+CREATE TABLE `positions` (
+  `id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `time` date NOT NULL,
   `x_cord` int(11) NOT NULL,
   `y_cord` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -62,6 +74,13 @@ ALTER TABLE `cats`
   ADD KEY `FK_owner_id` (`ownerID`);
 
 --
+-- A tábla indexei `positions`
+--
+ALTER TABLE `positions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_cat_id` (`cat_id`);
+
+--
 -- A tábla indexei `users`
 --
 ALTER TABLE `users`
@@ -75,6 +94,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `cats`
 --
 ALTER TABLE `cats`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT a táblához `positions`
+--
+ALTER TABLE `positions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -92,6 +117,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `cats`
   ADD CONSTRAINT `FK_owner_id` FOREIGN KEY (`ownerID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Megkötések a táblához `positions`
+--
+ALTER TABLE `positions`
+  ADD CONSTRAINT `FK_cat_id` FOREIGN KEY (`cat_id`) REFERENCES `cats` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
