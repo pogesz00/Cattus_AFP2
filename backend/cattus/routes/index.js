@@ -14,7 +14,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-// Database Connection
+// Database Connection (Deleted in app.js from here)
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -203,7 +203,7 @@ app.get('/users', (req, res) => {
     }
   });
 });
-
+//Deleted in app.js until here
 // Starting the server
 const PORT = process.env.PORT || 3100;
 app.listen(PORT, () => {
