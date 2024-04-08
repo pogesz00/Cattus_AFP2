@@ -6,8 +6,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-module.exports = router;
-
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 
@@ -209,3 +207,5 @@ const PORT = process.env.PORT || 3100;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = router;
