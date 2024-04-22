@@ -1,11 +1,11 @@
 @extends('layout')
-@section('title', 'Registration')
+@section('title', 'Login')
 @section('content')
 <div style="text-align: center">
-    <h1>Registration</h1>
+    <h1>Login</h1>
 </div>
     <div class="container">
-        <div class="mt-5">
+    <div class="mt-5">
             @if($errors->any())
                 <div class="col-12">
                     @foreach($errors->all() as $error)
@@ -22,25 +22,17 @@
                 <div class="alert alert-success">{{session('success')}}</div>
             @endif
         </div>
-        <form action="{{route('registration.post')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
+        <form action="{{route('login.post')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
             @csrf
             <div class="mb-3">
-                <label class="form-label">Username</label>
+                <label for="exampleInputEmail1" class="form-label">Username</label>
                 <input type="text" class="form-control" name="username">
             </div>
             <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="email">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Password</label>
+                <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" class="form-control" name="password">
             </div>
-            <div class="mb-3">
-                <label class="form-label">Permission (user/admin)</label>
-                <input type="text" class="form-control" name="permission">
-            </div>
-            <button type="submit" class="btn btn-success">Register</button>
+            <button type="submit" class="btn btn-success">Login</button>
         </form>
     </div>
 @endsection
