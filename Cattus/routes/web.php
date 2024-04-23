@@ -14,3 +14,6 @@ Route::get('/registration', [AuthManager::class, 'registration'])->name('registr
 Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('registration.post');
 
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
+
+Route::get('/cat', [AuthManager::class, 'cat'])->name('cat');
+Route::post('/cat', [AuthManager::class, 'catPost'])->name('cat.post');

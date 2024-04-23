@@ -1,3 +1,6 @@
+@extends('layout')
+@section('title', 'Cattus')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
      <head>
@@ -250,3 +253,4 @@ height: 'auto',
 </footer>
 </body>
 </html>
+@endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Cat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -59,5 +60,34 @@ class AuthManager extends Controller
         Session:flush();
         Auth::logout();
         return redirect(route('login')); 
+    }
+
+    function cat(){
+        if(Auth::check()){
+            return view('cat');
+        }
+        return view('login');
+    }
+
+    public function catPost(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'image' => 'required'
+        ]);
+
+        $data['name'] = $request->name;
+        $data['image'] = $request->image;
+
+        $user = Auth::user();
+        $data['user_id'] = $user->id;
+
+        if(request()->has('image')){
+            $imagePath = request()->file('image')->store('cats','public');
+            $data['image'] = $imagePath;
+        }
+
+        $cat = Cat::create($data);
+
+        return redirect(route('welcome'))->with("success", "Cat created!"); 
     }
 }
