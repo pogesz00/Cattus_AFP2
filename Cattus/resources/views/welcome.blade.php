@@ -1,3 +1,6 @@
+@extends('layout')
+@section('title', 'Cattus')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
      <head>
@@ -121,9 +124,9 @@ height: 'auto',
       </div>
      <div class="clear"></div>
 
-</div>
-      
-      </div>
+     <li class="nav-item">
+            <a class="nav-link" href="{{route('logout')}}">Logout</a>
+          </li>
 
 </header>
 
@@ -250,3 +253,4 @@ height: 'auto',
 </footer>
 </body>
 </html>
+@endsection
