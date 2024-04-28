@@ -20,7 +20,7 @@
             @endif
         </div>
         <div style="text-align: center">
-            <h1>Sell car: </h1>
+            <h1>Upload your cat to our database: </h1>
         </div>
         <form action="{{route('cat.post')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px" enctype="multipart/form-data">
             @csrf

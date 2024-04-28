@@ -17,3 +17,7 @@ Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
 Route::get('/cat', [AuthManager::class, 'cat'])->name('cat');
 Route::post('/cat', [AuthManager::class, 'catPost'])->name('cat.post');
+
+Route::get('/myprofile', [AuthManager::class, 'myprofile'])->name('myprofile');
+Route::post('/myprofile', [AuthManager::class, 'myprofileUpdate'])->name('myprofile.post');
+Route::delete('/myprofile', [AuthManager::class, 'myprofileDelete'])->name('myprofile.delete');

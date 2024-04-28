@@ -8,6 +8,7 @@ use App\Models\Cat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class AuthManager extends Controller
 {
@@ -89,5 +90,56 @@ class AuthManager extends Controller
         $cat = Cat::create($data);
 
         return redirect(route('welcome'))->with("success", "Cat created!"); 
+    }
+
+    function myprofile(){
+        if(Auth::check()){
+            return view('myprofile');
+        }
+        return view('login');
+    }
+
+    function myprofileUpdate(Request $request){
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:255|unique:users,username,' . auth()->id()
+        ]);
+        try {
+            DB::beginTransaction();
+            $user = auth()->user();
+            $user->update([
+                'username' => $validatedData['username'],
+            ]);
+            DB::commit();
+            return view('myprofile');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return view('myprofile');
+        }
+    }
+    public function myprofileDelete()
+    {
+        $user = Auth::user();
+        
+        $cats = $user->cats;
+        foreach ($cats as $cat) {
+            if ($cats->image) {
+                unlink('storage/'.$cat->image);
+            }
+        }
+        $user->cats()->delete();
+        $user->delete();
+
+        return redirect()->route('login')->with('success', 'Your account and associated cats have been deleted.');
+    }
+
+    function deleteCat($id){
+        $user = Auth::user();
+        $cat = Cat::where('id', $id)->first();
+        if($cat->user_id == $user->id){
+            unlink('storage/'.$cat->image);
+            $cat->delete();
+            return redirect()->intended(route('welcome'))->with("success");
+        }
+        return view('welcome', ['cat'=>$cat]);
     }
 }

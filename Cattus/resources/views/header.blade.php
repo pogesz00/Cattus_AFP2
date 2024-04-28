@@ -11,7 +11,10 @@
         </li>
         @auth
           <li class="nav-item">
-            <a class="nav-link" href="{{route('cat')}}">Cat</a>
+            <a class="nav-link" href="{{route('cat')}}">Upload your cat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('myprofile')}}">My profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('logout')}}">Logout</a>
