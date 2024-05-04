@@ -7,18 +7,33 @@
     $user = Auth::user();
     $user_cats = Cat::where('user_id', $user->id)->get();
 @endphp
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cattus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}"> <!-- Custom styles -->
+</head>
 <div style="text-align: center">
-    <h1>My profile: </h1>
+    <h1 class="rainbow-text">My profile: </h1>
 </div>
-<form action="{{route('myprofile.post')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
+<div class="flex-row">
+    <div class="flex-column">
+    <div  class="tenor-gif-embed" data-postid="4153958422723068991" data-share-method="host" data-aspect-ratio="1" data-width="40%"><a  href="https://tenor.com/view/mcisti-gif-4153958422723068991">Mcisti GIF</a>from <a href="https://tenor.com/search/mcisti-gifs">Mcisti GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
+    <div class="flexbox-column">
+    <form action="{{route('myprofile.post')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
     @csrf
 
     <div class="mb-3">
-        <label class="form-label">Username</label>
+        <label class="form-label rainbow-text">Username</label>
         <input type="text" class="form-control" name="username" value="{{ $user->username }}"></input>
     </div>
     <button type="submit" class="btn btn-success">Update profile</button>
 </form>
+
 
 <form action="{{ route('myprofile.delete') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
     @csrf
@@ -30,6 +45,11 @@
         return confirm('Are you sure you want to delete your account?');
     }
 </script>
+    </div>
+</div>
+
+</div>
+
 
 <div class="container" style="margin-left: 10%; margin-right: 10%;">
     <h2>My cats: </h2>
