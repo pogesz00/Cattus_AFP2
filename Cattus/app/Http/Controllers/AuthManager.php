@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cat;
+use App\Models\Position;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -122,7 +123,7 @@ class AuthManager extends Controller
         
         $cats = $user->cats;
         foreach ($cats as $cat) {
-            if ($cats->image) {
+            if ($cat->image) {
                 unlink('storage/'.$cat->image);
             }
         }
@@ -141,5 +142,28 @@ class AuthManager extends Controller
             return redirect()->intended(route('welcome'))->with("success");
         }
         return view('welcome', ['cat'=>$cat]);
+    }
+
+    function simulateTime() {
+        $cats = Cat::all();
+    
+        foreach ($cats as $cat) {
+            $x = rand(0, 100);
+            $y = rand(0, 100);
+            
+            Position::create([
+                'cat_id' => $cat->id,
+                'x' => $x,
+                'y' => $y
+            ]);
+        }
+        return redirect(route('welcome'))->with("success", "Forwarding time..."); 
+    }
+
+    function viewCat($id){
+        $cat = Cat::where('id', $id)
+           ->first();
+
+        return view('viewcat', ['cat'=>$cat]);
     }
 }

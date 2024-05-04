@@ -59,7 +59,7 @@
                 <img class="br5" src="{{ asset('storage/'.$cat->image) }}" width="150px" height="150px" style="object-fit: cover">
             </div>
             <div class="px-2 content">
-                <p class="mb-1 text-cl fw400">{{ $cat->name }}</p>
+                <p class="mb-1 text-cl fw400"><a  href="{{route('viewcat',['id' => $cat->id])}}">{{ $cat->name }}</a></p>
             </div>
         </div>
     @endforeach

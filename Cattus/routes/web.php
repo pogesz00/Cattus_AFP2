@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
+use App\Models\Cat;
 
 Route::get('/', function () {
-    return view('welcome');
+    $cats = Cat::all();
+    return view('welcome', ['cats'=>$cats]);
 })->name('welcome');
 
 Route::get('/login', [AuthManager::class, 'login'])->name('login');
@@ -21,3 +23,8 @@ Route::post('/cat', [AuthManager::class, 'catPost'])->name('cat.post');
 Route::get('/myprofile', [AuthManager::class, 'myprofile'])->name('myprofile');
 Route::post('/myprofile', [AuthManager::class, 'myprofileUpdate'])->name('myprofile.post');
 Route::delete('/myprofile', [AuthManager::class, 'myprofileDelete'])->name('myprofile.delete');
+
+Route::post('/welcome', [AuthManager::class, 'simulateTime'])->name('position.post');
+
+Route::get('/viewcat/{id}', [AuthManager::class, 'viewCat'])->name('viewcat');
+Route::delete('/viewcat/{id}', [AuthManager::class, 'deleteCat'])->name('cat.delete');
